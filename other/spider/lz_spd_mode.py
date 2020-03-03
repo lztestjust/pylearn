@@ -2,6 +2,12 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import subprocess
 from time import sleep
+import datetime
+import time
+import os
+from random import choice
+
+CUR_DIR = os.curdir
 
 
 def remote_chrome():
@@ -58,6 +64,36 @@ def dazondianping(driver):
         driver.quit()
 
 
+def tuzhan_word():
+    # url = r'https://v5.rabbitpre.com/m2/aUe1ZjL54Y'
+
+    urls = ['https://v5.rabbitpre.com/m2/aUe1ZjL54Y',
+           'https://v5.rabbitpre.com/m2/aUe1ZjMLP5',
+           'https://v5.rabbitpre.com/m2/aUe1ZjML0H',
+           'https://v5.rabbitpre.com/m2/aUe1ZjML0D',
+           'https://v5.rabbitpre.com/m2/aUe1ZjLWQ1',
+           'http://v5.rabbitpre.com/v/amm2Mb7',
+           'https://v5.rabbitpre.com/m2/aUe1ZjLGI2',
+           'https://v5.rabbitpre.com/m2/aUe1ZjLGIz',
+           'https://v5.rabbitpre.com/m2/aUe1ZjLGSS'
+           ]
+    # urls = ['https://testa2.rabbitpre.com/m2/aUe1Zi90wA', 'https://testa2.rabbitpre.com/m2/aUe1Zi90wc',
+    #         'http://testa2.rabbitpre.com/v/eaINZni', 'https://testa2.rabbitpre.com/m2/aUe1Zi90wT',
+    #         'https://testa2.rabbitpre.com/m2/aUe1Zi90w4', 'https://testa2.rabbitpre.com/m2/aUe1Zi90wR',
+    #         'https://testa2.rabbitpre.com/m2/aUe1Zi90wM', 'https://testa2.rabbitpre.com/m2/aUe1Zi90wa',
+    #         'https://testa2.rabbitpre.com/m2/aUe1Zi90w6', 'https://testa2.rabbitpre.com/m2/aUe1Zi90w5']
+
+    driver = remote_chrome()
+    try:
+        # driver.get(url)
+        driver.get(choice(urls))
+        sleep(2)
+    except:
+
+        fp = str(int(time.time())) + '.png'
+        driver.save_screenshot(os.path.join(CUR_DIR, fp))
+    finally:
+        driver.close()
 
 
 if __name__ == '__main__':
@@ -67,13 +103,16 @@ if __name__ == '__main__':
     # # 大众点评
     # dazondianping(driver)
 
-    driver_ = selenium_less_hander()
-    url_ = 'http://www.dianping.com/'
-    driver_.get(url_)
-    sleep(1)
-    print(driver_.page_source)
-    data_cookies_m_ = {}
-    cookies_ = driver_.get_cookies()
-    for i in cookies_:
-        data_cookies_m_[i['name']] = i['value']
-    print(data_cookies_m_)
+    # driver_ = selenium_less_hander()
+    # url_ = 'http://www.dianping.com/'
+    # driver_.get(url_)
+    # sleep(1)
+    # print(driver_.page_source)
+    # data_cookies_m_ = {}
+    # cookies_ = driver_.get_cookies()
+    # for i in cookies_:
+    #     data_cookies_m_[i['name']] = i['value']
+    # print(data_cookies_m_)
+    # print(CUR_DIR)
+    for i in range(100):
+        tuzhan_word()

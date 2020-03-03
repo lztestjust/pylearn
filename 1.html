@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+	<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+	 <router-link to="/foo">Go to Foo</router-link>
+	 <router-link to="https://www.baidu.com">Go to Bar</router-link>
+	<div id="vue_det">
+		<h1>site : {{site}}</h1>
+		<h1>url : {{url}}</h1>
+		<h1>{{details()}}</h1>
+	</div>
+	<div id="lz">
+		<span>{{lz}}</span>
+		<div v-html="html">
+			<p>发放时</p>
+		</div>
+		<span v-bind:title="msg">悬停</span>
+		<span v-if="seen">可见</span>
+		<span v-if="notseen">不可见</span>
+	</div>
+	<div id="lz3">
+		<span v-for="tool in tools">{{tool.text}}</span>
+	</div>
+    <div id="lz4">
+        <p>{{msg}}</p>
+        <button v-on:click="reverseMsg">click</button>
+        <input v-model="msg">
+		<p>{{msg2}}</p>
+		<button v-on:click="reverseMsg2">点击</button>
+    </div>
+    <div id="lz5">
+        <ol>
+            <todo-item></todo-item>
+        </ol>
+        <br>
+        <ol>
+            <todo-item2 v-for="item in data_list" v-bind:todo="item"></todo-item2>
+
+        </ol>
+		<todo-item3></todo-item3>
+    </div>
+	<div id="lz6">
+		<button v-bind:disabled="isDisabled">按钮隐藏</button>
+		<button v-bind:disabled="isDisabled2">按钮隐藏</button>
+		<button v-bind:disabled="isDisabled3">按钮隐藏</button>
+		<button v-bind:disabled="isDisabled4">按钮隐藏</button>
+		<button v-bind:disabled="isDisabled5">按钮隐藏</button>
+		<button v-bind:disabled="isDisabled6">按钮隐藏</button>
+		<input v-on:focus="isFocus">
+	</div>
+	<div id="lz7">
+		<span v-once>{{msg}}</span>
+		<span>{{msg}}</span>
+		<button v-on:click="changMsg">chang</button>
+	</div>
+	<div id="lz8">
+		<span>{{msg}}</span>
+		<span>{{get_msg}}</span>
+	</div>
+	<div id="lz9">
+		<span>{{first}}</span>
+		<span>{{last}}</span>
+		<p>{{get_full}}</p>
+	</div>
+	<div id="lz10">
+		<button v-on:click="baidu">访问百度</button>
+	</div>
+	<div>
+		{{ number + 1 }}
+
+		{{ ok ? 'YES' : 'NO' }}
+	</div>
+
+    <!-- script -->
+	<script type="text/javascript">
+
+		var vm = new Vue({
+			el: '#vue_det',
+			data: {
+				site: "lala",
+				url: "www.baidu.com",
+				alexa: "100"
+			},
+			methods: {
+				details: function() {
+					return  this.site + " - 学的不仅是技术，更是梦想！";
+				}
+			}
+		})
+
+	</script>
+	<script>
+		var data = {lz:"lz just do it!", html:"<span>lalala</span>", msg:"时间:" + new Date().toLocaleString()};
+		var vm2 = new Vue({
+			el: '#lz',
+			data: {
+				html:"<span>lalala</span>",
+				msg:"时间:" + new Date().toLocaleString(),
+				seen:true,
+				notseen:false
+			}
+		})
+	</script>
+	<script>
+		var vm3 = new Vue({
+			el:'#lz3',
+			data:{
+				tools:[
+					{text:'lz'},
+					{text:'just'},
+					{text:'do'},
+					{text:'it'},
+					{text:'!'}
+				]
+			}
+		})
+	</script>
+    <script>
+        var vm4 = new Vue({
+            el: '#lz4',
+            data:{
+                msg: 'just !',
+                msg2: '12345'
+            },
+            methods:{
+                reverseMsg: function(){
+                    this.msg = this.msg.split('').reverse().join('')
+                },
+                reverseMsg2: function(){
+                	this.msg2 = this.msg2.split('').reverse()
+                }
+            }
+        })
+    </script>
+    <script>
+        Vue.component('todo-item',{
+            template: '<li>未知！</li>'
+        })
+
+        Vue.component('todo-item2',{
+            props:['todo'],
+            template: '<li>{{todo.text}}</li>'
+        })
+		
+        Vue.component('todo-item3',{
+            props:['todo'],
+            template: '<div class="table-row-customer-name"><label class="ant-checkbox-wrapper"><span class="ant-checkbox"><input type="checkbox" class="ant-checkbox-input" value=""><span class="ant-checkbox-inner"></span></span></label><span class="name" title="云霄何霁">云霄何霁</span></div>'
+        })
+
+        var vm5 = new Vue({
+            el: '#lz5',
+            data:{
+                data_list: [
+                    {id: 0, text: '跟我说'},
+                    {id: 2, text: '访问 '},
+                    {id: 3, text: '复古色'},
+                ]
+            }
+        })
+    </script>
+	<script>
+		var vm6 = new Vue({
+			el: '#lz6',
+			data: {
+				isDisabled: '',
+				isDisabled2: null,
+				isDisabled3: undefined,
+				isDisabled4: false,
+				isDisabled5: 'disabled',
+				isDisabled6: true
+			},
+			methods: {
+				isFocus: function(){
+					this.isDisabled = false
+				}
+			}
+		})
+	</script>
+	<script>
+		var vm7 = new Vue({
+			el: '#lz7',
+			data: {
+				msg: "message"
+			},
+			methods: {
+				changMsg: function(){
+					this.msg = this.msg.split('').reverse().join('')
+				}
+			}
+		})
+	</script>
+	<script>
+		var vm8 = new Vue({
+			el: '#lz8',
+			data: {
+				msg: "message"
+			},
+			computed: {
+				get_msg: function(){
+					return this.msg.split('').reverse().join('')
+				}
+			}
+		})
+	</script>
+	<script>
+		var vm9 = new Vue({
+			el: '#lz9',
+			data:{
+				first: "one",
+				last: "last"
+			},
+			computed:{
+				get_full: {
+					get: function(){
+						return this.first +' '+ this.last
+					},
+					set: function(arg){
+						var full = arg.split(' ')
+						this.first = full[0]
+						this.last = full[full.length - 1]
+					}
+				}
+			}
+			
+		})
+	</script>
+	<script>
+		const Foo = { template: '<div>foo</div>' }
+		const Bar = { template: '<div>bar</div>' }
+		var vm10 = new Vue({
+			el: '#lz10',
+			methods: {
+				baidu: function(){
+					this.$router.push('https://www.baidu.com')
+				}
+			}
+		})
+	</script>
+</body>
+</html>
